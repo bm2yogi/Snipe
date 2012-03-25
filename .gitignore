@@ -1,0 +1,9 @@
+bin
+obj
+*Resharper*
+*crunchsolution*
+*crunchproject*
+*dotcover*
+*.user
+*.suo
+packages
