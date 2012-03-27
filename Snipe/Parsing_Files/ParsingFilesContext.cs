@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -45,7 +44,7 @@ namespace Snipe.Tests.Parsing_Files
         [Test]
         public void then_the_context_value_should_equal_the_text()
         {
-            Assert.AreEqual(_theResult.Contexts["parsingspecificationfiles"].MemberName,("ParsingSpecificationFilesContext"));
+            Assert.AreEqual("ParsingSpecificationFilesContext", _theResult.Contexts["parsingspecificationfiles"].MemberName);
         }
 
         [Test]
@@ -61,13 +60,19 @@ namespace Snipe.Tests.Parsing_Files
             Assert.AreEqual(_theResult.Scenarios["parsinganinvalidspecfile"].MemberName, ("Parsing_an_invalid_spec_file"));
         }
 
+        [Test]
+        public void then_it_should_load_all_the_givens()
+        {
+            Assert.AreEqual(3, _theResult.Givens.Count());
+        }
+
         public IEnumerable<string> ValidSpecFile
         {
             get
             {
                 yield return "Context: Parsing Specification Files";
                 yield return "";
-                yield return "Scenario: Parsing a valid spec file";
+                yield return "Scenario: Parsing a  valid spec file";
                 yield return "";
                 yield return "Given a valid specification file";
                 yield return "Given a bright sunny day";
@@ -84,131 +89,5 @@ namespace Snipe.Tests.Parsing_Files
                 yield return "Then it should bring about world war three";
             }
         }
-    }
-
-    public class SpecFileParser
-    {
-        private readonly SpecFile _specFile;
-        private readonly IEnumerable<string> _specFileData;
-
-        public SpecFileParser(IEnumerable<string> specFileData)
-        {
-            _specFile = new SpecFile();
-            _specFileData = specFileData;
-            Parse();
-        }
-
-        private void Parse()
-        {
-            _specFileData
-                .Select(line => new SpecLine(line))
-                .ToList()
-                .ForEach(ParseLine);
-        }
-
-        public SpecFile SpecFile
-        {
-            get { return _specFile; }
-        }
-
-        private void ParseLine(SpecLine specLine)
-        {
-
-            if (IsContext(specLine))
-            {
-                AddContext(specLine);
-            }
-
-            if (IsScenario(specLine))
-            {
-                AddScenario(specLine);
-            }
-        }
-
-        private static bool IsScenario(SpecLine specLine)
-        {
-            return specLine.FirstWord.StartsWith("Scenario");
-        }
-
-        private static bool IsContext(SpecLine specLine)
-        {
-            return specLine.FirstWord.StartsWith("Context");
-        }
-
-        private void AddContext(SpecLine specLine)
-        {
-            if (_specFile.Contexts.ContainsKey(specLine.Key)) return;
-
-            _specFile.Contexts.Add(specLine.Key, new Context(specLine));
-        }
-
-        private void AddScenario(SpecLine specLine)
-        {
-            if (_specFile.Scenarios.ContainsKey(specLine.Key)) return;
-
-            _specFile.Scenarios.Add(specLine.Key, new Scenario(specLine));
-        }
-    }
-
-    public class SpecLine
-    {
-        public string FirstWord = "";
-        public string Key = "";
-        public string[] Text = new string[]{};
-
-        public SpecLine(string line)
-        {
-            if (String.IsNullOrEmpty(line.Trim())) return;
-
-            var words = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            FirstWord = words.First();
-            Text = words.Skip(1).ToArray();
-            Key = Text.Aggregate((current, next) => current + next).ToLowerInvariant();
-        }
-    }
-
-
-    public class SpecFile
-    {
-        public Dictionary<string, Context> Contexts { get; set; }
-        public Dictionary<string, Scenario> Scenarios { get; set; }
-
-        public SpecFile()
-        {
-            Contexts = new Dictionary<string, Context>();
-            Scenarios = new Dictionary<string, Scenario>();
-        }
-    }
-
-    public class Context
-    {
-        private readonly SpecLine _specLine;
-        private readonly string _memberName;
-
-        public Context(SpecLine specLine)
-        {
-            _specLine = specLine;
-            _memberName =
-            _memberName = _specLine.Text.Aggregate((c, n) => c + n) + "Context";
-        }
-        
-        public string MemberName
-        {
-            get { return _memberName; }
-        }
-    }
-
-    public class Scenario
-    {
-        private readonly SpecLine _specLine;
-        private readonly string _memberName;
-
-        public Scenario(SpecLine specLine)
-        {
-            _specLine = specLine;
-            _memberName = _specLine.Text.Aggregate((c, n) => c + "_" + n);
-        }
-
-        public string MemberName { get { return _memberName; } }
     }
 }
