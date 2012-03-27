@@ -66,6 +66,18 @@ namespace Snipe.Tests.Parsing_Files
             Assert.AreEqual(3, _theResult.Givens.Count());
         }
 
+        [Test]
+        public void then_it_should_load_all_the_whens()
+        {
+            Assert.AreEqual(1, _theResult.Whens.Count());
+        }
+
+        [Test]
+        public void then_it_should_load_all_the_thens()
+        {
+            Assert.AreEqual(4, _theResult.Thens.Count());
+        }
+
         public IEnumerable<string> ValidSpecFile
         {
             get

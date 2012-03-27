@@ -4,45 +4,83 @@ using System.Linq;
 
 namespace Snipe
 {
-    public abstract class SpecPart
+    public interface ISpecPart
     {
-        protected SpecLine SpecLine;
-
-        protected SpecPart(SpecLine specLine)
-        {
-            SpecLine = specLine;
-        }
-
-        public abstract string MemberName { get; }
+        string MemberName { get; }
     }
 
-    public class Context : SpecPart
+    public class Context : ISpecPart
     {
-        public Context(SpecLine specLine) : base(specLine){}
+        private readonly SpecLine _specLine;
 
-        public override string MemberName
+        public Context(SpecLine specLine)
         {
-            get { return SpecLine.Text.PascalCase() + "Context"; }
+            _specLine = specLine;
+        }
+
+        public virtual string MemberName
+        {
+            get { return _specLine.Text.PascalCase() + "Context"; }
         }
     }
 
-    public class Scenario : SpecPart
+    public class Scenario : ISpecPart
     {
-        public Scenario(SpecLine specLine) : base(specLine){}
+        private readonly SpecLine _specLine;
 
-        public override string MemberName
+        public Scenario(SpecLine specLine)
         {
-            get { return SpecLine.Text.JoinWithUnderscores(); }
+            _specLine = specLine;
+        }
+
+        public virtual string MemberName
+        {
+            get { return _specLine.Text.JoinWithUnderscores(); }
         }
     }
 
-    public class Given : SpecPart
+    public class Given : ISpecPart
     {
-        public Given(SpecLine specLine) : base(specLine){}
+        private readonly SpecLine _specLine;
 
-        public override string MemberName
+        public Given(SpecLine specLine)
         {
-            get { return SpecLine.Text.JoinWithUnderscores(); }
+            _specLine = specLine;
+        }
+
+        public virtual string MemberName
+        {
+            get { return _specLine.Text.JoinWithUnderscores(); }
+        }
+    }
+
+    public class When : ISpecPart
+    {
+        private readonly SpecLine _specLine;
+
+        public When(SpecLine specLine)
+        {
+            _specLine = specLine;
+        }
+
+        public virtual string MemberName
+        {
+            get { return _specLine.Text.JoinWithUnderscores(); }
+        }
+    }
+
+    public class Then : ISpecPart
+    {
+        private readonly SpecLine _specLine;
+
+        public Then(SpecLine specLine)
+        {
+            _specLine = specLine;
+        }
+
+        public virtual string MemberName
+        {
+            get { return _specLine.Text.JoinWithUnderscores(); }
         }
     }
 
@@ -55,10 +93,10 @@ namespace Snipe
 
         public static string PascalCase(this IEnumerable<string> words)
         {
-            return words.Select(s=>s.InitialCap()).Aggregate((c, n) => c + n);
+            return words.Select(s => s.InitialCap()).Aggregate((c, n) => c + n);
         }
 
-        public static string InitialCap (this string word)
+        public static string InitialCap(this string word)
         {
             var firstLetter = word.First().ToString(CultureInfo.InvariantCulture).ToUpperInvariant();
             var rest = word.Substring(1);
