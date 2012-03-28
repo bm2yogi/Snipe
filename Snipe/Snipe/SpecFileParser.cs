@@ -17,14 +17,16 @@ namespace Snipe
 
         private void Parse()
         {
-            _specFileData
-                .Select(line => new SpecLine(line))
+           var xx =  _specFileData
+                .Select(SpecPartFactory.Create)
+                .GroupBy(x => x.GetType().Name)
                 .ToList()
-                .ForEach(ParseLine);
+                .ForEach()
         }
 
         public SpecFile SpecFile
         {
+
             get { return _specFile; }
         }
 
