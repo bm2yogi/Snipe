@@ -12,11 +12,8 @@ namespace Snipe
 
     public class Context : ISpecPart
     {
-        private readonly IEnumerable<string> _line;
         private readonly SpecLine _specLine;
-
-        public Context(IEnumerable<string> line){ _line = line; }
-
+        
         public Context(SpecLine specLine)
         {
             _specLine = specLine;
@@ -24,21 +21,18 @@ namespace Snipe
 
         public string Key
         {
-            get { return _line.Concatenate(); }
+            get { return _specLine.Text.Concatenate(); }
         }
 
         public virtual string MemberName
         {
-            get { return _line.PascalCase() + "Context"; }
+            get { return _specLine.Text.PascalCase() + "Context"; }
         }
     }
 
     public class Scenario : ISpecPart
     {
         private readonly SpecLine _specLine;
-        private readonly IEnumerable<string> _line;
-
-        public Scenario(IEnumerable<string> line) { _line = line; }
 
         public Scenario(SpecLine specLine)
         {
@@ -47,24 +41,19 @@ namespace Snipe
 
         public string Key
         {
-            get { return _line.Concatenate(); }
+            get { return _specLine.Text.Concatenate(); }
         }
 
         public virtual string MemberName
         {
-            get { return _line.ConcatenateWithUnderscores(); }
+            get { return _specLine.Text.ConcatenateWithUnderscores(); }
         }
     }
 
     public class Given : ISpecPart
     {
-        private readonly IEnumerable<string> _line;
-        private readonly SpecLine _specLine;
 
-        public Given(IEnumerable<string> line)
-        {
-            _line = line;
-        }
+        private readonly SpecLine _specLine;
 
         public Given(SpecLine specLine)
         {
@@ -73,24 +62,18 @@ namespace Snipe
 
         public string Key
         {
-            get { return _line.Concatenate(); }
+            get { return _specLine.Text.Concatenate(); }
         }
 
         public virtual string MemberName
         {
-            get { return _line.ConcatenateWithUnderscores(); }
+            get { return _specLine.Text.ConcatenateWithUnderscores(); }
         }
     }
 
     public class When : ISpecPart
     {
-        private readonly IEnumerable<string> _line;
         private readonly SpecLine _specLine;
-
-        public When(IEnumerable<string> line)
-        {
-            _line = line;
-        }
 
         public When(SpecLine specLine)
         {
@@ -99,24 +82,18 @@ namespace Snipe
 
         public string Key
         {
-            get { return _line.Concatenate(); }
+            get { return _specLine.Text.Concatenate(); }
         }
 
         public virtual string MemberName
         {
-            get { return _line.ConcatenateWithUnderscores(); }
+            get { return _specLine.Text.ConcatenateWithUnderscores(); }
         }
     }
 
     public class Then : ISpecPart
     {
-        private readonly IEnumerable<string> _line;
         private readonly SpecLine _specLine;
-
-        public Then(IEnumerable<string> line)
-        {
-            _line = line;
-        }
 
         public Then(SpecLine specLine)
         {
@@ -125,12 +102,12 @@ namespace Snipe
 
         public string Key
         {
-            get { return _line.Concatenate(); }
+            get { return _specLine.Text.Concatenate(); }
         }
 
         public virtual string MemberName
         {
-            get { return _line.ConcatenateWithUnderscores(); }
+            get { return _specLine.Text.ConcatenateWithUnderscores(); }
         }
     }
 
