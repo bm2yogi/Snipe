@@ -22,6 +22,7 @@ namespace Snipe.Tests
                 yield return "When the file is parsed";
                 yield return "Then it should make everyone happy";
                 yield return "Then it should bring about world peace";
+                yield return "Then unicorns should return to the wild";
                 yield return "";
                 yield return "Scenario: Parsing an invalid spec file";
                 yield return "";

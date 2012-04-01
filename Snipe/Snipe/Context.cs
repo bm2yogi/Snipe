@@ -17,6 +17,7 @@ namespace Snipe
         public Context(SpecLine specLine)
         {
             _specLine = specLine;
+            Scenarios = new List<Scenario>();
         }
 
         public string Key
@@ -28,6 +29,8 @@ namespace Snipe
         {
             get { return _specLine.Text.PascalCase() + "Context"; }
         }
+
+        public IList<Scenario> Scenarios { get; set; }
     }
 
     public class Scenario : ISpecPart
@@ -37,6 +40,9 @@ namespace Snipe
         public Scenario(SpecLine specLine)
         {
             _specLine = specLine;
+            Givens = new List<Given>();
+            Whens = new List<When>();
+            Thens = new List<Then>();
         }
 
         public string Key
@@ -48,6 +54,10 @@ namespace Snipe
         {
             get { return _specLine.Text.ConcatenateWithUnderscores(); }
         }
+
+        public List<Given> Givens { get; set; }
+        public List<When> Whens { get; set; }
+        public List<Then> Thens { get; set; } 
     }
 
     public class Given : ISpecPart
