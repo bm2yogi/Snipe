@@ -50,23 +50,38 @@ namespace Snipe.Tests
         }
 
         [Test]
-        public void it_should_load_all_the_givens()
+        public void the_first_scenario_should_have_2_givens()
         {
             Assert.AreEqual(2, TheFirstContext.Scenarios.First().Givens.Count());
+        }
+
+        [Test]
+        public void the_second_scenario_should_have_2_givens()
+        {
             Assert.AreEqual(2, TheFirstContext.Scenarios.Skip(1).First().Givens.Count());
         }
 
         [Test]
-        public void it_should_load_all_the_whens()
+        public void the_first_scenario_should_have_1_when()
         {
             Assert.AreEqual(1, TheFirstContext.Scenarios.First().Whens.Count());
+        }
+
+        [Test]
+        public void the_second_scenario_should_have_1_when()
+        {
             Assert.AreEqual(1, TheFirstContext.Scenarios.Skip(1).First().Whens.Count());
         }
 
         [Test]
-        public void it_should_load_all_the_thens()
+        public void the_first_scenario_should_have_3_thens()
         {
             Assert.AreEqual(3, TheFirstContext.Scenarios.First().Thens.Count());
+        }
+
+        [Test]
+        public void the_second_scenario_should_have_2_thens()
+        {
             Assert.AreEqual(2, TheFirstContext.Scenarios.Skip(1).First().Thens.Count());
         }
     }

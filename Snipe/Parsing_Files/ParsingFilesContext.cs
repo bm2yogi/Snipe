@@ -5,7 +5,7 @@ namespace Snipe.Tests
 {
     public class ParsingFilesContext
     {
-        private string[] _theSpecFile;
+        private IEnumerable<string> _theSpecFile;
         private SpecFileParser _theParser;
         protected SpecFile _theResult;
 
@@ -36,7 +36,7 @@ namespace Snipe.Tests
 
         protected void given_a_valid_specFile()
         {
-            _theSpecFile = Enumerable.ToArray<string>(ValidSpecFile);
+            _theSpecFile = ValidSpecFile;
         }
 
         protected void when_it_does_its_thing()
