@@ -76,39 +76,34 @@ namespace Snipe.Tests
 
         private void WriteContextTearDown()
         {
-            _builder.AppendLine();
             _builder.AppendLine("public void AfterAll()");
             WrapWithBraces(() => { });
         }
 
         private void WriteContextSetup()
         {
-            _builder.AppendLine();
             _builder.AppendLine("public void BeforeAll()");
             WrapWithBraces(() => { });
         }
 
         private void WriteGiven(Given given)
         {
-            _builder.AppendLine();
             _builder.AppendLine(string.Format("public void {0}()", given.MemberName));
             WrapWithBraces(() => { });
         }
 
         private void WriteWhen(When when)
         {
-            _builder.AppendLine();
             _builder.AppendLine(string.Format("public void {0}()", when.MemberName));
             WrapWithBraces(() => { });
         }
 
         private void WriteThen(Then then)
         {
-            _builder.AppendLine();
             _builder.AppendLine(@"[Test]");
             _builder.AppendLine(string.Format(@"public void {0}()", then.MemberName));
 
-            WrapWithBraces(() => _builder.AppendLine(@"Assert.Fail(""Not implemented."""));
+            WrapWithBraces(() => _builder.AppendLine("Assert.Fail(\"Not implemented.\")"));
         }
 
         private void WrapWithBraces(Action writeBlock)
@@ -116,6 +111,7 @@ namespace Snipe.Tests
             _builder.AppendLine(@"{");
             writeBlock();
             _builder.AppendLine(@"}");
+            _builder.AppendLine();
         }
     }
 }
