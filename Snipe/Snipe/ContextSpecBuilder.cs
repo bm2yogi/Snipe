@@ -6,7 +6,9 @@ namespace Snipe
 {
     public class ContextSpecBuilder
     {
+        private int _indentLevel = 0;
         private readonly Context _context;
+        private Scenario _currentScenario;
         private readonly ISpecFile _theSpecFile;
         private readonly StringBuilder _builder = new StringBuilder();
 
@@ -14,6 +16,7 @@ namespace Snipe
         {
             _theSpecFile = theSpecFile;
             _context = _theSpecFile.Contexts.First().Value;
+            _currentScenario = _context.Scenarios.First();
         }
 
         public void Build()
@@ -27,7 +30,7 @@ namespace Snipe
 
         private void WriteContext()
         {
-            _builder.AppendLine(string.Format(@"public class {0}", _context));
+            AppendLine(string.Format(@"public class {0}", _context));
 
             WrapWithBraces(() => _context.Scenarios
                                      .SelectMany(s => s.Givens)
@@ -39,8 +42,10 @@ namespace Snipe
 
         private void WriteScenario(Scenario scenario)
         {
-            _builder.AppendLine(@"[TestFixture]");
-            _builder.AppendLine(string.Format(@"public class {0} : {1}", scenario, _context));
+            _currentScenario = scenario;
+
+            AppendLine(@"[TestFixture]");
+            AppendLine(string.Format(@"public class {0} : {1}", scenario, _context));
 
             WrapWithBraces(() =>
                                {
@@ -52,38 +57,60 @@ namespace Snipe
 
         private void WriteContextTearDown()
         {
-            _builder.AppendLine(@"[TestFixtureTearDown]");
-            _builder.AppendLine(@"protected void AfterAll()");
+            AppendLine(@"[TestFixtureTearDown]");
+            AppendLine(@"protected void AfterAll()");
             WrapWithBraces(() => { });
         }
 
         private void WriteContextSetup()
         {
-            _builder.AppendLine(@"[TestFixtureSetUp]");
-            _builder.AppendLine(@"protected void BeforeAll()");
-            WrapWithBraces(() => { });
+            AppendLine(@"[TestFixtureSetUp]");
+            AppendLine(@"protected void BeforeAll()");
+            WrapWithBraces(() => _currentScenario.Givens
+                                     .Union(_currentScenario.Whens)
+                                     .ToList()
+                                     .ForEach(s => AppendLine(string.Format("{0}();", s))));
         }
 
         private void WriteGivenWhen(SpecPart specPart)
         {
-            _builder.AppendLine(string.Format("protected void {0}()", specPart));
-            WrapWithBraces(() => { });
+            AppendLine(string.Format("protected void {0}()", specPart));
+            WrapWithBraces(() => AppendLine("// not implemented."));
         }
 
         private void WriteThen(SpecPart then)
         {
-            _builder.AppendLine(@"[Test]");
-            _builder.AppendLine(string.Format(@"public void {0}()", then));
+            AppendLine(@"[Test]");
+            AppendLine(string.Format(@"public void {0}()", then));
 
-            WrapWithBraces(() => _builder.AppendLine("Assert.Fail(\"Not implemented.\")"));
+            WrapWithBraces(() => AppendLine("Assert.Fail(\"Not implemented.\")"));
+        }
+
+        private void AppendLine(string line="")
+        {
+            var tabs = String.Empty.PadLeft(_indentLevel, '\t');
+            _builder.AppendLine(string.Format("{0}{1}", tabs, line));
         }
 
         private void WrapWithBraces(Action writeBlock)
         {
-            _builder.AppendLine(@"{");
-            writeBlock();
-            _builder.AppendLine(@"}");
-            _builder.AppendLine();
+            AppendLine(@"{");
+                Indent();
+                writeBlock();
+                Outdent();
+            AppendLine(@"}");
+
+            AppendLine();
+        }
+
+        private void Indent()
+        {
+            _indentLevel++;
+        }
+
+        private void Outdent()
+        {
+            _indentLevel--;
         }
     }
 }
