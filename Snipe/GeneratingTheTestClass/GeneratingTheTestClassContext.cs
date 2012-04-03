@@ -14,7 +14,7 @@ namespace Snipe.Tests
 
         protected void given_a_parsed_specfile()
         {
-            _theSpecFile = It();
+            _theSpecFile = ParsedSpecFile();
         }
 
         protected void when_a_test_classFile_is_generated()
@@ -49,7 +49,7 @@ namespace Snipe.Tests
             }
         }
 
-        protected SpecFile It()
+        protected SpecFile ParsedSpecFile()
         {
             return new  SpecFileParser(ValidSpecFile).SpecFile;
         }

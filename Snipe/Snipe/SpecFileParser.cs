@@ -8,17 +8,11 @@ namespace Snipe
     {
         private readonly SpecFile _specFile;
         private readonly IEnumerable<string> _specFileData;
-        private Dictionary<string, SpecLine> _specs;
 
         public SpecFileParser(IEnumerable<string> specFileData)
         {
             _specFile = new SpecFile();
             _specFileData = specFileData;
-            _specs = _specFileData
-                .Select(x => new SpecLine(x))
-                .Distinct(new SpecLineComparer())
-                .ToDictionary(x => x.Key);
-
             Parse();
         }
 
@@ -67,32 +61,10 @@ namespace Snipe
             }
         }
 
-        private class SpecLineComparer : IEqualityComparer<SpecLine>
-        {
-            public bool Equals(SpecLine x, SpecLine y)
-            {
-                return x.Key.Equals(y.Key);
-            }
-
-            public int GetHashCode(SpecLine obj)
-            {
-                return obj.Key.GetHashCode();
-            }
-        }
-
         public SpecFile SpecFile
         {
             get { return _specFile; }
         }
-
-        //private void ParseLine(SpecLine specLine)
-        //{
-        //    AddContext(specLine);
-        //    AddScenario(specLine);
-        //    AddGiven(specLine);
-        //    AddWhen(specLine);
-        //    AddThen(specLine);
-        //}
 
         private static bool IsContext(SpecLine specLine)
         {
@@ -153,5 +125,18 @@ namespace Snipe
 
         //        _specFile.Thens.Add(specLine.Key, new Then(specLine));
         //}
+    }
+
+    public class SpecLineComparer : IEqualityComparer<SpecLine>
+    {
+        public bool Equals(SpecLine x, SpecLine y)
+        {
+            return x.Key.Equals(y.Key);
+        }
+
+        public int GetHashCode(SpecLine obj)
+        {
+            return obj.Key.GetHashCode();
+        }
     }
 }
