@@ -27,56 +27,53 @@ namespace Snipe
 
         private void WriteContext()
         {
-            _builder.AppendLine(string.Format(@"public class {0}", _context.MemberName));
+            _builder.AppendLine(string.Format(@"public class {0}", _context));
 
-            WrapWithBraces(() =>
-                               {
-                                   _context.Scenarios.SelectMany(s => s.Givens).ToList().ForEach(WriteGiven);
-                                   _context.Scenarios.SelectMany(s => s.Whens).ToList().ForEach(WriteWhen);
-                               });
+            WrapWithBraces(() => _context.Scenarios
+                                     .SelectMany(s => s.Givens)
+                                     .Union(_context.Scenarios.SelectMany(s => s.Whens))
+                                     .Distinct()
+                                     .ToList()
+                                     .ForEach(WriteGivenWhen));
         }
 
         private void WriteScenario(Scenario scenario)
         {
             _builder.AppendLine(@"[TestFixture]");
-            _builder.AppendLine(string.Format(@"public class {0} : {1}", scenario.MemberName, _context.MemberName));
+            _builder.AppendLine(string.Format(@"public class {0} : {1}", scenario, _context));
 
             WrapWithBraces(() =>
                                {
                                    WriteContextSetup();
                                    WriteContextTearDown();
-                                   scenario.Thens.ForEach(WriteThen);
+                                   scenario.Thens.ToList().ForEach(WriteThen);
                                });
         }
 
         private void WriteContextTearDown()
         {
-            _builder.AppendLine("protected void AfterAll()");
+            _builder.AppendLine(@"[TestFixtureTearDown]");
+            _builder.AppendLine(@"protected void AfterAll()");
             WrapWithBraces(() => { });
         }
 
         private void WriteContextSetup()
         {
-            _builder.AppendLine("protected void BeforeAll()");
+            _builder.AppendLine(@"[TestFixtureSetUp]");
+            _builder.AppendLine(@"protected void BeforeAll()");
             WrapWithBraces(() => { });
         }
 
-        private void WriteGiven(Given given)
+        private void WriteGivenWhen(SpecPart specPart)
         {
-            _builder.AppendLine(string.Format("protected void {0}()", given.MemberName));
+            _builder.AppendLine(string.Format("protected void {0}()", specPart));
             WrapWithBraces(() => { });
         }
 
-        private void WriteWhen(When when)
-        {
-            _builder.AppendLine(string.Format("protected void {0}()", when.MemberName));
-            WrapWithBraces(() => { });
-        }
-
-        private void WriteThen(Then then)
+        private void WriteThen(SpecPart then)
         {
             _builder.AppendLine(@"[Test]");
-            _builder.AppendLine(string.Format(@"public void {0}()", then.MemberName));
+            _builder.AppendLine(string.Format(@"public void {0}()", then));
 
             WrapWithBraces(() => _builder.AppendLine("Assert.Fail(\"Not implemented.\")"));
         }
