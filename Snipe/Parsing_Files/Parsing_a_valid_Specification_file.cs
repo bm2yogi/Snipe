@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 
-namespace Snipe.Tests
+namespace Snipe.Tests.ParsingFiles
 {
     [TestFixture]
-    public class Parsing_a_valid_Specification_file : ParsingFilesContext
+    public class When_parsing_a_valid_Specification_file : ParsingFilesContext
     {
         [TestFixtureSetUp]
         public void BeforeAll()
@@ -22,12 +22,12 @@ namespace Snipe.Tests
         [Test]
         public void it_should_have_one_context()
         {
-            Assert.AreEqual(1, _theResult.Contexts.Count);
+            Assert.AreEqual(1, TheResult.Contexts.Count);
         }
 
         private Context TheFirstContext
         {
-            get { return _theResult.Contexts.First().Value; }
+            get { return TheResult.Contexts.First().Value; }
         }
 
         [Test]

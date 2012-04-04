@@ -1,13 +1,21 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Snipe.Tests
 {
     public class ParsingFilesContext
     {
         private IEnumerable<string> _theSpecFile;
-        private SpecFileParser _theParser;
-        protected SpecFile _theResult;
+        protected SpecFile TheResult;
+
+        protected void given_a_valid_specFile()
+        {
+            _theSpecFile = ValidSpecFile;
+        }
+
+        protected void when_it_does_its_thing()
+        {
+            TheResult = new SpecFileParser(_theSpecFile).SpecFile;
+        }
 
         public IEnumerable<string> ValidSpecFile
         {
@@ -32,17 +40,6 @@ namespace Snipe.Tests
                 yield return "Then it should make everyone sad";
                 yield return "Then it should bring about world war three";
             }
-        }
-
-        protected void given_a_valid_specFile()
-        {
-            _theSpecFile = ValidSpecFile;
-        }
-
-        protected void when_it_does_its_thing()
-        {
-            _theParser = new SpecFileParser(_theSpecFile);
-            _theResult = _theParser.SpecFile;
         }
     }
 }

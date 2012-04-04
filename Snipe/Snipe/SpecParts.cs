@@ -55,9 +55,12 @@ namespace Snipe
         public Context(IEnumerable<string> line)
         {
             Key = line.Skip(1).Concatenate();
-            MemberName = line.Skip(1).PascalCase()+"Context";
+            Namespace = line.Skip(1).PascalCase();
+            MemberName = Namespace +"Context";
             Scenarios = new List<Scenario>();
         }
+
+        public string Namespace { get; set; }
 
         public IList<Scenario> Scenarios { get; set; }
     }

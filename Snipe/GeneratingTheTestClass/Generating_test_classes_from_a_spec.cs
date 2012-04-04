@@ -1,10 +1,10 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Snipe.Tests
+namespace Snipe.Tests.GeneratingTheTestClass
 {
     [TestFixture]
-    public class Generating_test_classes_from_a_spec : GeneratingTheTestClassContext
+    public class When_generating_test_classes_from_a_spec : GeneratingTheTestClassContext
     {
         [TestFixtureSetUp]
         public void BeforeAll()

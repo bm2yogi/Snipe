@@ -21,9 +21,21 @@ namespace Snipe
 
         public void Build()
         {
-            WriteContext();
-            _context.Scenarios.ToList().ForEach(WriteScenario);
+            WriteNamespace();
             Output = _builder.ToString();
+        }
+
+        private void WriteNamespace()
+        {
+            AppendLine(@"using System;");
+            AppendLine(@"using NUnit.Framework;");
+            AppendLine();
+            AppendLine(string.Format(@"namespace {0}", _context.Namespace));
+            WrapWithBraces(() =>
+            {
+                WriteContext();
+                _context.Scenarios.ToList().ForEach(WriteScenario);
+            });
         }
 
         public string Output { get; set; }
@@ -83,10 +95,10 @@ namespace Snipe
             AppendLine(@"[Test]");
             AppendLine(string.Format(@"public void {0}()", then));
 
-            WrapWithBraces(() => AppendLine("Assert.Fail(\"Not implemented.\")"));
+            WrapWithBraces(() => AppendLine("Assert.Fail(\"Not implemented.\");"));
         }
 
-        private void AppendLine(string line="")
+        private void AppendLine(string line = "")
         {
             var tabs = String.Empty.PadLeft(_indentLevel, '\t');
             _builder.AppendLine(string.Format("{0}{1}", tabs, line));
@@ -95,9 +107,9 @@ namespace Snipe
         private void WrapWithBraces(Action writeBlock)
         {
             AppendLine(@"{");
-                Indent();
-                writeBlock();
-                Outdent();
+            Indent();
+            writeBlock();
+            Outdent();
             AppendLine(@"}");
 
             AppendLine();
