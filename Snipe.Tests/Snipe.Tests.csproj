@@ -51,9 +51,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Snipe\Snipe.csproj">
+    <ProjectReference Include="..\SnipeLib\SnipeLib.csproj">
       <Project>{7EA5C668-B395-4B7F-8540-3CD63EF11DEC}</Project>
-      <Name>Snipe</Name>
+      <Name>SnipeLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
