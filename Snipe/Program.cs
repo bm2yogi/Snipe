@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Snipe
 {
@@ -10,9 +12,22 @@ namespace Snipe
 
         static void Main(string[] args)
         {
-            if (args.Length == 0) ShowHelp();
-            ParseArgs(args);
-            Execute();
+            if (args.Length == 0)
+            {
+                ShowHelp();
+                return;
+            }
+
+            try
+            {
+                ParseArgs(args);
+                Execute();
+            }
+            catch (Exception ex)
+            {
+                WriteError(ex.Message);
+                ShowHelp();
+            }
         }
 
         private static void Execute()
@@ -25,19 +40,11 @@ namespace Snipe
 
         private static void BuildSpecFile()
         {
-            try
-            {
-                var specLines = File.ReadAllLines(_in);
-                var parser = new SpecFileParser(specLines);
-                var builder = new ContextSpecBuilder(parser.SpecFile);
-                builder.Build();
-                File.WriteAllText(_out, builder.Output);
-            }
-            catch (Exception ex)
-            {
-                WriteError(ex.Message);
-                ShowHelp();
-            }
+            var specLines = File.ReadAllLines(_in);
+            var parser = new SpecFileParser(specLines);
+            var builder = new ContextSpecBuilder(parser.SpecFile);
+            builder.Build();
+            File.WriteAllText(_out, builder.Output);
         }
 
         private static void WriteError(string message)
@@ -45,23 +52,21 @@ namespace Snipe
             Console.WriteLine(message);
         }
 
-        private static void ParseArgs(string[] args)
+        private static void ParseArgs(IList<string> args)
         {
-            try
-            {
-                _in = args[0].Split(':')[1];
-                _out = args[1].Split(':')[1];
-            }
-            catch (Exception)
-            {
-                ShowHelp();
-            }
+            if (args.Count != 2) throw new ApplicationException("The wrong number of parameters were provided.");
+
+            _in = (Regex.Match(args[0], ":").Success) ? args[0].Split(':')[1] : args[0];
+            _out = (Regex.Match(args[1], ":").Success) ? args[1].Split(':')[1] : args[1];
         }
 
         private static void ShowHelp()
         {
             Console.WriteLine();
-            Console.WriteLine("usage: you're doing it wrong.");
+            Console.WriteLine("usage: snipe [in:]<specFilePath> [out:]<classFilePath>.");
+            Console.WriteLine();
+            Console.WriteLine("\tspecFilePath:\tThe path and filename of the specification file to parse. This file is expected to be in the Gerhkin syntax.");
+            Console.WriteLine("\tclassFilePath:\tThe path and filename of the parsed test class file.");
         }
     }
 }
