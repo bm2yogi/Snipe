@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnipeLib", "SnipeLib\SnipeL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snipe", "Snipe\Snipe.csproj", "{4AE81032-122D-46C3-AFBB-535CE891197C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstallSnipe", "InstallSnipe\InstallSnipe.vdproj", "{07DCA762-C5DD-40E5-966A-B41ED1C910DB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,13 +47,6 @@ Global
 		{4AE81032-122D-46C3-AFBB-535CE891197C}.Release|Mixed Platforms.Build.0 = Release|x86
 		{4AE81032-122D-46C3-AFBB-535CE891197C}.Release|x86.ActiveCfg = Release|x86
 		{4AE81032-122D-46C3-AFBB-535CE891197C}.Release|x86.Build.0 = Release|x86
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Debug|Any CPU.ActiveCfg = Debug
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Debug|x86.ActiveCfg = Debug
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Release|Any CPU.ActiveCfg = Release
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Release|Any CPU.Build.0 = Release
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Release|Mixed Platforms.ActiveCfg = Release
-		{07DCA762-C5DD-40E5-966A-B41ED1C910DB}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
