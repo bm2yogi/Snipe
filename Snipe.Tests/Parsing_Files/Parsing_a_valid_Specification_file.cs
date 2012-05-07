@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace Snipe.Tests.ParsingFiles
@@ -50,6 +51,14 @@ namespace Snipe.Tests.ParsingFiles
         }
 
         [Test]
+        public void the_generated_class_and_membernames_should_be_stripped_of_illegal_characters()
+        {
+            const string pattern = "^[`~!@#$%^&*()-=+,./<>?;':\"[]\\{}|]*$";
+            var specParts = TheFirstContext.Scenarios.SelectMany(sc => sc.Givens.Union(sc.Whens.Union(sc.Thens)));
+            Assert.IsFalse(specParts.Any(sc => Regex.IsMatch(sc.MemberName, pattern)));
+        }
+
+        [Test]
         public void the_first_scenario_should_have_2_givens()
         {
             Assert.AreEqual(2, TheFirstContext.Scenarios.First().Givens.Count());
@@ -80,9 +89,9 @@ namespace Snipe.Tests.ParsingFiles
         }
 
         [Test]
-        public void the_second_scenario_should_have_2_thens()
+        public void the_second_scenario_should_have_3_thens()
         {
-            Assert.AreEqual(2, TheFirstContext.Scenarios.Skip(1).First().Thens.Count());
+            Assert.AreEqual(3, TheFirstContext.Scenarios.Skip(1).First().Thens.Count());
         }
     }
 }

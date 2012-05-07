@@ -39,6 +39,7 @@ namespace Snipe.Tests
                 yield return "When the file is parsed";
                 yield return "Then it should make everyone sad";
                 yield return "Then it should bring about world war three";
+                yield return "Then it should not contain any of these characters `~!@#$%^&*()-=+,./<>?;':\"[]\\{}|";
             }
         }
     }
