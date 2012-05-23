@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Snipe
 {
@@ -26,6 +27,12 @@ namespace Snipe
             var firstLetter = word.First().ToString(CultureInfo.InvariantCulture).ToUpperInvariant();
             var rest = word.Substring(1);
             return firstLetter + rest;
+        }
+
+        public static string ReplaceIllegalCharacters(this string word)
+        {
+            const string pattern = "^.*[`~!@#$%^&*()-=+,./<>?;':\"[]\\{}|].*$";
+            return Regex.Replace(word, pattern, string.Empty);
         }
     }
 }

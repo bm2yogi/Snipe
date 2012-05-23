@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
 
@@ -53,7 +54,7 @@ namespace Snipe.Tests.ParsingFiles
         [Test]
         public void the_generated_class_and_membernames_should_be_stripped_of_illegal_characters()
         {
-            const string pattern = "^[`~!@#$%^&*()-=+,./<>?;':\"[]\\{}|]*$";
+            const string pattern = "^.*[`~!@#$%^&*()-=+,./<>?;':\"[]\\{}|].*$";
             var specParts = TheFirstContext.Scenarios.SelectMany(sc => sc.Givens.Union(sc.Whens.Union(sc.Thens)));
             Assert.IsFalse(specParts.Any(sc => Regex.IsMatch(sc.MemberName, pattern)));
         }

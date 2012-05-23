@@ -14,6 +14,7 @@ namespace Snipe
         
         public static SpecPart Create(string line)
         {
+            line = line.ReplaceIllegalCharacters();
             if (String.IsNullOrEmpty(line.Trim())) return null;
 
             var words = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
