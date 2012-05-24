@@ -47,8 +47,8 @@ namespace Snipe.Tests.ParsingFiles
         [Test]
         public void the_scenario_memberNames_should_be_underscore_spaced()
         {
-            Assert.AreEqual(TheFirstContext.Scenarios.First().MemberName, ("Parsing_a_valid_spec_file"));
-            Assert.AreEqual(TheFirstContext.Scenarios.Skip(1).First().MemberName, ("Parsing_an_invalid_spec_file"));
+            Assert.AreEqual(("Parsing_a_valid_spec_file"), TheFirstContext.Scenarios.First().MemberName);
+            Assert.AreEqual(("Parsing_an_invalid_spec_file"), TheFirstContext.Scenarios.Skip(1).First().MemberName);
         }
 
         [Test]

@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreatingSpecParts\CreatingSpecPartsContext.cs" />
     <Compile Include="GeneratingTheTestClass\GeneratingTheTestClassContext.cs" />
     <Compile Include="GeneratingTheTestClass\Generating_test_classes_from_a_spec.cs" />
     <Compile Include="Parsing_Files\ParsingFilesContext.cs" />

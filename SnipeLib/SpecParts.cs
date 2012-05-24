@@ -14,8 +14,11 @@ namespace Snipe
         
         public static SpecPart Create(string line)
         {
-            line = line.ReplaceIllegalCharacters();
             if (String.IsNullOrEmpty(line.Trim())) return null;
+
+            line = line
+                .ToLowerInvariant()
+                .ReplaceIllegalCharacters();
 
             var words = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var firstWord = words.First().ToLowerInvariant();
@@ -70,7 +73,7 @@ namespace Snipe
         public Scenario(IEnumerable<string> line)
         {
             Key = line.Skip(1).Concatenate();
-            MemberName = line.Skip(1).ConcatenateWithUnderscores();
+            MemberName = line.Skip(1).ConcatenateWithUnderscores().InitialCap();
             Givens = new List<SpecPart>();
             Whens = new List<SpecPart>();
             Thens = new List<SpecPart>();
@@ -84,21 +87,21 @@ namespace Snipe
         public Given(IEnumerable<string> line)
         {
             Key = line.Concatenate();
-            MemberName = line.ConcatenateWithUnderscores();
+            MemberName = line.ConcatenateWithUnderscores().InitialCap();
         }
      }
     public class When : SpecPart {
         public When(IEnumerable<string> line)
         {
             Key = line.Concatenate();
-            MemberName = line.ConcatenateWithUnderscores();
+            MemberName = line.ConcatenateWithUnderscores().InitialCap();
         }
      }
     public class Then : SpecPart {
         public Then(IEnumerable<string> line)
         {
             Key = line.Skip(1).Concatenate();
-            MemberName = line.Skip(1).ConcatenateWithUnderscores();
+            MemberName = line.Skip(1).ConcatenateWithUnderscores().InitialCap();
         }
      }
 }

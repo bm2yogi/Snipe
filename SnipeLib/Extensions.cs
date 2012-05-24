@@ -31,7 +31,7 @@ namespace Snipe
 
         public static string ReplaceIllegalCharacters(this string word)
         {
-            const string pattern = "^.*[`~!@#$%^&*()-=+,./<>?;':\"[]\\{}|].*$";
+            const string pattern = "[`~!@#$%^&*()-=+,./<>?;':\"[\\]\\\\{}|]+";
             return Regex.Replace(word, pattern, string.Empty);
         }
     }
