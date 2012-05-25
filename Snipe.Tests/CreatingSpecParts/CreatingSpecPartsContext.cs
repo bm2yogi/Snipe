@@ -7,6 +7,9 @@ namespace Snipe.Tests
 	{
 	    protected string SpecLine;
 	    protected SpecPart TheSpecPart;
+	    protected Context TheContext;
+	    protected string[] Spec;
+	    protected SpecFile TheSpecFile;
 
 	    protected void given_a_specLine_with_mixed_caps()
 	    {
@@ -15,13 +18,29 @@ namespace Snipe.Tests
 		
 		protected void given_a_context_with_multiple_scenarios()
 		{
-			// not implemented.
+		    Spec = new[]
+		               {
+		                   "Context: The Context",
+		                   "Scenario: The first scenario",
+		                   "",
+		                   "Scenario: The second scenario",
+		                   ""
+		               };
 		}
 		
 		protected void given_each_scenario_with_speclines_that_differ_only_in_capitalization()
 		{
-			// not implemented.
+		    const string given = "Given the first specline";
+
+		    Spec[2] = given.ToLowerInvariant();
+		    Spec[4] = given.ToUpperInvariant();
 		}
+
+        protected void when_parsing_the_file()
+        {
+            var parser = new SpecFileParser(Spec);
+            TheSpecFile = parser.SpecFile;
+        }
 		
 		protected void when_parsing_the_specline()
 		{
@@ -54,34 +73,33 @@ namespace Snipe.Tests
 		[Test]
 		public void the_rest_of_the_spec_part_should_be_lowercase()
 		{
-			Assert.Fail("Not implemented.");
+		    var restOfMemberName = TheSpecPart.MemberName.Substring(1);
+		    Assert.AreEqual(restOfMemberName.ToLowerInvariant(), restOfMemberName);
 		}
 		
 	}
-	
-	[TestFixture]
-	public class speclines_that_differ_only_in_capitalization : CreatingSpecPartsContext
-	{
-		[TestFixtureSetUp]
-		protected void BeforeAll()
-		{
-			given_a_context_with_multiple_scenarios();
-			given_each_scenario_with_speclines_that_differ_only_in_capitalization();
-			when_parsing_the_specline();
-		}
-		
-		[TestFixtureTearDown]
-		protected void AfterAll()
-		{
-		}
-		
-		[Test]
-		public void only_one_matching_specpart_should_be_generated()
-		{
-			Assert.Fail("Not implemented.");
-		}
-		
-	}
-	
+
+    [TestFixture]
+    public class speclines_that_differ_only_in_capitalization : CreatingSpecPartsContext
+    {
+        [TestFixtureSetUp]
+        protected void BeforeAll()
+        {
+            given_a_context_with_multiple_scenarios();
+            given_each_scenario_with_speclines_that_differ_only_in_capitalization();
+            when_parsing_the_file();
+        }
+
+        [TestFixtureTearDown]
+        protected void AfterAll()
+        {
+        }
+
+        [Test]
+        public void only_one_matching_specpart_should_be_generated()
+        {
+            Assert.AreEqual(1, TheSpecFile.Contexts.Values.SelectMany(c => c.Scenarios.SelectMany(s => s.Givens)).Count());
+        }
+    }
 }
 
