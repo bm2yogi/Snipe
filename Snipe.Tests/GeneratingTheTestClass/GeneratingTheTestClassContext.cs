@@ -29,7 +29,7 @@ namespace Snipe.Tests
                 yield return "Scenario: When parsing a  valid spec file";
                 yield return "";
                 yield return "Given a valid specification file";
-                yield return "Given a bright sunny day";
+                yield return "Given a bright SUNNY day";
                 yield return "When the file is parsed";
                 yield return "Then it should make everyone happy";
                 yield return "Then it should bring about world peace";
@@ -38,7 +38,7 @@ namespace Snipe.Tests
                 yield return "Scenario: When parsing an invalid spec file";
                 yield return "";
                 yield return "Given an invalid specification file";
-                yield return "Given a bright sunny day";
+                yield return "GIVEN A BRIGHT SUNNY DAY";
                 yield return "When the file is parsed";
                 yield return "Then it should make everyone sad";
                 yield return "Then it should bring about world war three";
