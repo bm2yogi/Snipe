@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Snipe")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("ATDD spec generation tool. Converts plain text in Gherkin syntax into executable specs.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Michael Ibarra")]
 [assembly: AssemblyProduct("Snipe")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
