@@ -12,4 +12,7 @@
     <copyright>Copyright 2012</copyright>
     <tags>ATDD UnitTesting TDD Gherkin BDD</tags>
   </metadata>
+  <files>
+	<file src="bin\Release\*SnipeLib.dll" target="lib" />
+  </files>
 </package>
