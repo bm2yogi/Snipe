@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 
 namespace Snipe
 {
@@ -6,10 +7,17 @@ namespace Snipe
     {
         static void Main(string[] args)
         {
-            var serviceLocator = IocRegistration.Register();
-            var application = (SnipeConsole) serviceLocator.Resolve(typeof (SnipeConsole));
+            try
+            {
+                var serviceLocator = IocRegistration.Register();
+                var application = serviceLocator.Resolve<ISnipeConsole>();
 
-            application.Run(args);
+                application.Run(args);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }

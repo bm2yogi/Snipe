@@ -17,6 +17,7 @@ namespace Snipe
             if (String.IsNullOrEmpty(line.Trim())) return null;
 
             line = line
+                .Trim()
                 .ToLowerInvariant()
                 .ReplaceIllegalCharacters();
 

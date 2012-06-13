@@ -5,15 +5,22 @@ using SnipeLib;
 
 namespace Snipe
 {
-    public class SnipeConsole
+    public interface ISnipeConsole
     {
-        private readonly IFileSystem _fileSystem;
-        private static string _in;
-        private static string _out;
+        void Run(string [] args);
+    }
 
-        public SnipeConsole(IFileSystem fileSystem)
+    public class SnipeConsole : ISnipeConsole
+    {
+        private string _in;
+        private string _out;
+        private readonly IApplicationHost _applicationHost;
+        private readonly IContextSpecBuilder _contextSpecBuilder;
+
+        public SnipeConsole(IApplicationHost applicationHost, IContextSpecBuilder contextSpecBuilder)
         {
-            _fileSystem = fileSystem;
+            _applicationHost = applicationHost;
+            _contextSpecBuilder = contextSpecBuilder;
         }
 
         public void Run(string [] args)
@@ -38,27 +45,25 @@ namespace Snipe
 
         private void Execute()
         {
-            Console.WriteLine("Input: {0}", _in);
-            Console.WriteLine("Output: {0}", _out);
+            _applicationHost.ConsoleOut(string.Format("Input: {0}", _in));
+            _applicationHost.ConsoleOut(string.Format("Output: {0}", _out));
 
             BuildSpecFile();
         }
 
         private void BuildSpecFile()
         {
-            var specLines = _fileSystem.ReadFile(_in);
+            var specLines = _applicationHost.ReadFile(_in);
             var parser = new SpecFileParser(specLines);
-            var builder = new ContextSpecBuilder(parser.SpecFile);
-            builder.Build();
-            _fileSystem.WriteFile(_out, builder.Output);
+            _contextSpecBuilder.Build(parser.SpecFile);
         }
 
-        private static void WriteError(string message)
+        private void WriteError(string message)
         {
-            Console.WriteLine(message);
+            _applicationHost.ConsoleOut(message);
         }
 
-        private static void ParseArgs(IList<string> args)
+        private void ParseArgs(IList<string> args)
         {
             if (args.Count != 2) throw new ApplicationException("The wrong number of parameters were provided.");
 
@@ -66,13 +71,13 @@ namespace Snipe
             _out = (Regex.Match(args[1], ":").Success) ? args[1].Split(':')[1] : args[1];
         }
 
-        private static void ShowHelp()
+        private  void ShowHelp()
         {
-            Console.WriteLine();
-            Console.WriteLine("usage: snipe [in:]<specFilePath> [out:]<classFilePath>.");
-            Console.WriteLine();
-            Console.WriteLine("\tspecFilePath:\tThe path and filename of the specification file to parse. This file is expected to be in the Gerhkin syntax.");
-            Console.WriteLine("\tclassFilePath:\tThe path and filename of the parsed test class file.");
+            _applicationHost.ConsoleOut("");
+            _applicationHost.ConsoleOut("usage: snipe [in:]<specFilePath> [out:]<classFilePath>.");
+            _applicationHost.ConsoleOut("");
+            _applicationHost.ConsoleOut("\tspecFilePath:\tThe path and filename of the specification file to parse. This file is expected to be in the Gerhkin syntax.");
+            _applicationHost.ConsoleOut("\tclassFilePath:\tThe path and filename of the parsed test class file.");
         }
     }
 }

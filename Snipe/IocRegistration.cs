@@ -13,7 +13,7 @@ namespace Snipe
              var executingAssembly = Assembly.GetExecutingAssembly();
 
              builder.RegisterAssemblyTypes(libAssembly, executingAssembly).AsImplementedInterfaces();
-             builder.Register(context => new SnipeConsole(context.Resolve<IFileSystem>()));
+             //builder.Register(context => new SnipeConsole(context.Resolve<IApplicationHost>()));
              return builder.Build();
          }
     }
