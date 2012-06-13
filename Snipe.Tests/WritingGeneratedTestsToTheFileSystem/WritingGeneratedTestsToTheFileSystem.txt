@@ -1,0 +1,31 @@
+Context Writing Generated Tests To The FileSystem
+
+Scenario: the specfile defines one scenario for one context
+
+given a specfile
+given the specfile defines one context
+given the specfile defines one scenario
+when writing out the generated tests
+then it should create one folder for each context
+then it should create one base class file for each context
+then it should create one test class for each scenario
+
+Scenario: the specfile defines multiple scenarios for one context
+
+given a specfile
+given the specfile defines one context
+given the specfile defines multiple scenarios
+when writing out the generated tests
+then it should create one folder for each context
+then it should create one base class file for each context
+then it should create one test class for each scenario
+
+Scenario: the specfile defines multiple scenarios for multiple contexts
+
+given a specfile
+given the specfile defines multiple contexts
+given the specfile defines multiple scenarios for each context
+when writing out the generated tests
+then it should create one folder for each context
+then it should create one base class file for each context
+then it should create one test class for each scenario

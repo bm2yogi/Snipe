@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IFileSystem.cs" />
     <Compile Include="SpecParts.cs" />
     <Compile Include="ContextSpecBuilder.cs" />
     <Compile Include="Extensions.cs" />
