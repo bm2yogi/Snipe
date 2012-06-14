@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="BlockWriter.cs" />
     <Compile Include="ContextBuilder.cs" />
-    <Compile Include="DeprecatedContextSpecBuilder.cs" />
     <Compile Include="IApplicationHost.cs" />
     <Compile Include="ScenarioBuilder.cs" />
     <Compile Include="SpecParts.cs" />
