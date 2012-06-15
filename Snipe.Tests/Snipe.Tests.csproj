@@ -45,7 +45,6 @@
     <Compile Include="Parsing_Files\ParsingFilesContext.cs" />
     <Compile Include="Parsing_Files\Parsing_a_valid_Specification_file.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestClass1.cs" />
     <Compile Include="WritingGeneratedTestsToTheFileSystem\WritingGeneratedTestsToTheFileSystemContext.cs" />
   </ItemGroup>
   <ItemGroup>
