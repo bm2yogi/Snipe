@@ -62,8 +62,10 @@ namespace Snipe
 
         private void ShowAppInfo()
         {
+            var assembly = Assembly.GetExecutingAssembly();
+            var assemblyName = assembly.GetName();
             _applicationHost.ConsoleOut("");
-            _applicationHost.ConsoleOut(string.Format("{0}",Assembly.GetExecutingAssembly().GetName()));
+            _applicationHost.ConsoleOut(string.Format("{0} (version {1})",assemblyName.Name, assemblyName.Version));
             _applicationHost.ConsoleOut("");
         }
 
@@ -76,9 +78,9 @@ namespace Snipe
         private  void ShowHelp()
         {
             _applicationHost.ConsoleOut("");
-            _applicationHost.ConsoleOut("usage: snipe <specFilePath>");
+            _applicationHost.ConsoleOut("Usage: Snipe <specFilePath>");
             _applicationHost.ConsoleOut("");
-            _applicationHost.ConsoleOut("\tspecFilePath:\tThe path and filename of the specification file to parse. This file is expected to be in the Gerhkin syntax.");
+            _applicationHost.ConsoleOut("specFilePath:\tThe path and filename of the specification file to parse. This file is expected to be in the Gerhkin syntax.");
         }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
@@ -11,8 +11,9 @@
     <releaseNotes>Contact: @bm2yogi</releaseNotes>
     <copyright>Copyright 2012</copyright>
     <tags>ATDD UnitTesting TDD Gherkin BDD</tags>
-    <dependencies>
-      <dependency id="Autofac" version="2.6.2.859" />
-    </dependencies>
-  </metadata>		
+  </metadata>
+  <files>
+    <file src="bin\release\SnipeLib.dll" target="lib\net40-client"/>
+    <file src="bin\release\Autofac.dll" target="lib\net40-client"/>
+  </files>
 </package>
