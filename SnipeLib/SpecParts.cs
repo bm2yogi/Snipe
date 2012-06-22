@@ -10,6 +10,7 @@ namespace Snipe
         private const string Feature = "feature";
         private const string Scenario = "scenario";
         private const string Given = "given";
+        private const string And = "and";
         private const string When = "when";
         private const string Then = "then";
         
@@ -29,6 +30,7 @@ namespace Snipe
             if (firstWord.StartsWith(Feature)) return new Context(words);
             if (firstWord.StartsWith(Scenario)) return new Scenario(words);
             if (firstWord.StartsWith(Given)) return new Given(words);
+            if (firstWord.StartsWith(And)) return new Given(words);
             if (firstWord.StartsWith(When)) return new When(words);
             if (firstWord.StartsWith(Then)) return new Then(words);
             

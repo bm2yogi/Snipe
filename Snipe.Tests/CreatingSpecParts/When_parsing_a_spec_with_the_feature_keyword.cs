@@ -47,4 +47,27 @@ namespace Snipe.Tests.CreatingSpecParts
         }
 
     }
+
+    [TestFixture]
+    public class When_parsing_a_spec_with_the_and_keyword : CreatingSpecPartsContext
+    {
+        [TestFixtureSetUp]
+        public void SetupContext()
+        {
+            Given_a_spec_that_uses_the_and_keyword();
+            when_parsing_the_specline();
+        }
+
+        private void Given_a_spec_that_uses_the_and_keyword()
+        {
+            this.SpecLine = "and some other condition.";
+        }
+
+        [Test]
+        public void It_should_create_a_context_specPart()
+        {
+            this.TheSpecPart.MemberName.ShouldEqual("And_some_other_condition");
+        }
+
+    }
 }

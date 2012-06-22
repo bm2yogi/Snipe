@@ -61,6 +61,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestSpec.txt" />
     <Content Include="WritingGeneratedTestsToTheFileSystem\WritingGeneratedTestsToTheFileSystem.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

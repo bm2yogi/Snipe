@@ -37,25 +37,25 @@ namespace Snipe
                 if (enumerator.Current is Scenario)
                 {
                     currentScenario = enumerator.Current as Scenario;
-                    if (currentContext == null) throw new ApplicationException("Scenario cannot precede Context in SpecFile.");
+                    if (currentContext == null) throw new ApplicationException("Scenarios must have a parent Context or Feature in the spec file.");
                     currentContext.Scenarios.Add(currentScenario);
                 }
 
                 if (enumerator.Current is Given)
                 {
-                    if (currentScenario == null) throw new ApplicationException("Givens cannot precede Scenarios in SpecFile.");
+                    if (currentScenario == null) throw new ApplicationException("Givens must have a parent Scenario in spec file.");
                     currentScenario.Givens.Add(enumerator.Current);
                 }
 
                 if (enumerator.Current is When)
                 {
-                    if (currentScenario == null) throw new ApplicationException("Whens cannot precede Scenarios in SpecFile.");
+                    if (currentScenario == null) throw new ApplicationException("Whens must have a parent Scenario in spec file.");
                     currentScenario.Whens.Add(enumerator.Current);
                 }
 
                 if (enumerator.Current is Then)
                 {
-                    if (currentScenario == null) throw new ApplicationException("Thens cannot precede Scenarios in SpecFile.");
+                    if (currentScenario == null) throw new ApplicationException("Thens must have a parent Scenario in spec file.");
                     currentScenario.Thens.Add(enumerator.Current);
                 }
             }
