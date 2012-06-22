@@ -1,29 +1,29 @@
 using System.Linq;
 using NUnit.Framework;
 
-namespace Snipe.Tests
+namespace Snipe.Tests.CreatingSpecParts
 {
-	public class CreatingSpecPartsContext
-	{
-	    protected string SpecLine;
-	    protected SpecPart TheSpecPart;
-	    protected Context TheContext;
-	    protected string[] Spec;
-	    protected SpecFile TheSpecFile;
+    public class CreatingSpecPartsContext
+    {
+        protected string SpecLine;
+        protected SpecPart TheSpecPart;
+        protected Context TheContext;
+        protected string[] Spec;
+        protected SpecFile TheSpecFile;
 
-	    protected void given_a_specLine_with_mixed_caps()
-	    {
-	        SpecLine = "gIVEn a SpeClINe wIth MixeD CaPS";
-	    }
-		
-		protected void when_parsing_the_specline()
-		{
-		    TheSpecPart = SpecPartFactory.Create(SpecLine);
-		}
-		
-	}
-	
-	[TestFixture]
+        protected void given_a_specLine_with_mixed_caps()
+        {
+            SpecLine = "gIVEn a SpeClINe wIth MixeD CaPS";
+        }
+
+        protected void when_parsing_the_specline()
+        {
+            TheSpecPart = SpecPartFactory.Create(SpecLine);
+        }
+
+    }
+
+    [TestFixture]
 	public class Parsing_specLines_with_mixed_capitalization : CreatingSpecPartsContext
 	{
 		[TestFixtureSetUp]

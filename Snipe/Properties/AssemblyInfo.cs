@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Snipe")]
 [assembly: AssemblyDescription("ATDD spec generation tool. Converts a plain text file of Acceptance Criteria in the Gherkin syntax into executable specs.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Michael Ibarra")]
+[assembly: AssemblyCompany("Michael Ibarra (@bm2yogi)")]
 [assembly: AssemblyProduct("Snipe")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.11")]
-[assembly: AssemblyFileVersion("1.0.1.11")]
+[assembly: AssemblyVersion("1.0.1.2")]
+[assembly: AssemblyFileVersion("1.0.1.2")]

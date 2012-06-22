@@ -34,14 +34,18 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sahara.1.0.0.1\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Sahara">
+      <HintPath>..\packages\Sahara.1.0.0.1\lib\Sahara.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreatingSpecParts\CreatingSpecPartsContext.cs" />
+    <Compile Include="CreatingSpecParts\When_parsing_a_spec_with_the_feature_keyword.cs" />
     <Compile Include="Parsing_Files\ParsingFilesContext.cs" />
     <Compile Include="Parsing_Files\Parsing_a_valid_Specification_file.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
