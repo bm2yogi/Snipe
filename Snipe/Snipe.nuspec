@@ -8,7 +8,7 @@
     <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Contact: @bm2yogi</releaseNotes>
+    <releaseNotes>Contact: Michael Ibarra (@bm2yogi)</releaseNotes>
     <copyright>Copyright 2012</copyright>
     <tags>ATDD UnitTesting TDD Gherkin BDD</tags>
   </metadata>

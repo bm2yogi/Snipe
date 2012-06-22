@@ -1,0 +1,22 @@
+﻿Feature: Writing out a spec
+Scenario: the spec uses the keywords feature and and
+Given a spec
+and the spec uses the word and instead of given
+when parsing the spec
+then it should treat the and as a given
+
+Given a spec
+and the spec uses the word feature instead of context
+when parsing the spec
+then it should treat the feature as a context
+
+scenario: the spec uses the keywords context and given only
+given a spec
+given the spec uses givens
+when parsing the spec
+then it should treat the given as a given
+
+given a spec
+given the spec uses the word context
+when parsing the spec
+then it should treat the context as a context
